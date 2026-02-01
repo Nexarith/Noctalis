@@ -3,17 +3,22 @@
 -- Noctalis Mod
 -- =========================================================
 
-local path = minetest.get_modpath("noctalis")
+local path = minetest.get_modpath("noctalis") .. "/mobs/vespera/"
+
+-- Utility function to move entities towards a target
 local add_velocity_towards = function(obj, target_pos, speed)
     local dir = vector.direction(obj:get_pos(), target_pos)
     obj:set_velocity(vector.multiply(dir, speed))
 end
 
+-- =========================================================
+-- Register Vespera entity
+-- =========================================================
 minetest.register_entity("noctalis:vespera", {
     initial_properties = {
         visual = "mesh",
-        mesh = "vespera.b3d",
-        textures = {"vespera.png"},
+        mesh = path.."vespera.b3d",
+        textures = {path.."vespera.png"},
         visual_size = {x=1, y=1},
         collisionbox = {-0.3, 0, -0.3, 0.3, 1.8, 0.3},
         physical = true,
@@ -53,7 +58,7 @@ minetest.register_entity("noctalis:vespera", {
 -- =========================================================
 minetest.register_craftitem("noctalis:sigil_vespera", {
     description = "Sigil of Vespera",
-    inventory_image = "sigil.png",
+    inventory_image = path.."sigil_vespera.png",
     on_use = function(itemstack, user)
         local pos = user:get_pos()
         pos.y = pos.y + 1
@@ -89,4 +94,4 @@ minetest.register_on_player_hpchange(function(player, hp_change)
         end
     end
     return hp_change
-                      end)
+end)
